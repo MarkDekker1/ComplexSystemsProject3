@@ -1,0 +1,13 @@
+#===================================================
+# MFM general auto file
+#===================================================
+
+print "\n***Generate starting data***"
+
+print "\n***Run with parameter alpha***"
+RUN0=run(e='MFM',c='MFM',ICP=['alpha'])+run(e='MFM',c='MFM',ICP=['alpha'], DS='-')
+p1=plot(RUN0)
+p1.config(stability=True,use_labels=False,coloring_method='branch')
+
+print "\n***Clean the directory***"
+cl()
