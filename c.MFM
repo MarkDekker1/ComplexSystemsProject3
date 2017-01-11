@@ -6,22 +6,22 @@
 NDIM=2
 
 # Output Control
-unames={1: 'X', 2:'Y'}
-parnames={1: 'lda', 2: 'c1', 3: 'c2', 4: 'beta',5:'alpha'}
-NPR=250
+unames={1: 'f', 2:'z'}
+parnames={1: 'sigma', 2: 'N', 3: 'r'}
+NPR=5000
 
 # Free Parameters
-ICP=['beta']
+ICP=['r']
 
 # Limits
-UZR={'beta':0.5,'alpha':0.5}
-UZSTOP={}, NMX=1000
+UZR={}
+UZSTOP={}, NMX=10000
 
 # Computation Constants
 IPS=1, IRS=0
 
 # Continuation Step Size
-DS=1e-3, DSMIN=1e-4, DSMAX=1e-2
+DS=5e-3, DSMIN=1e-4, DSMAX=1e-2
 
 # Discretization Constants
 NTST=5
@@ -31,13 +31,13 @@ NTST=5
 #===================================================#
 
 # Problem Constants
-NPAR=5, JAC=0
+NPAR=3, JAC=0
 
 # Discretization Constants
 #NCOL=4, IAD=3
 
 # Tolerances
-EPSL=1e-7, EPSU=1e-7, EPSS=1e-5, ITMX=8, NWTN=3, ITNW=5, IIS=3
+EPSL=1e-10, EPSU=1e-10, EPSS=1e-8, ITMX=8, NWTN=3, ITNW=5, IIS=3
 
 # Continuation Step Size
 IADS=1, THL={}, THU={}

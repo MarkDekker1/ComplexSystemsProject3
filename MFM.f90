@@ -9,19 +9,19 @@
       IMPLICIT NONE
       INTEGER NDIM, IJAC, ICP(*)
       DOUBLE PRECISION U(NDIM), PAR(*), F(NDIM), DFDU(*), DFDP(*)
-      DOUBLE PRECISION X,Y,lda, c1, c2, beta,alpha
+      DOUBLE PRECISION fi,z           ,sigma,N,r,  w
 
-	lda = PAR(1)
-	c1 = PAR(2)
-	c2 = PAR(3)
-	beta = PAR(4)
-	alpha = PAR(5)
+	sigma = PAR(1)
+	N = PAR(2)
+	r = PAR(3)
 
-	X = U(1)
-	Y = U(2)
+	fi = U(1)
+	z = U(2)
 
-	F(1) = alpha - lda * X + X**3/3
-	F(2) = beta - (c1+c2*X)*Y+Y**3/3
+	w = 1+ (r-1)*z**(N-1)-r/N*(1-z**N)/(1-z)
+
+	F(1) = -w*fi*(1-fi)
+	F(2) = (sigma-fi*(r-1))*z*(1-z)*(1-z**(N-1))
 
       END SUBROUTINE FUNC
 !----------------------------------------------------------------------
@@ -36,18 +36,14 @@
       DOUBLE PRECISION, INTENT(IN) :: Z
 
 !      Set the parameters
-       PAR(1)=1.	!lda
-       PAR(2)=1.	!c1
-       PAR(3)=1.	!c2
-       PAR(4)=0.5	!beta
-       PAR(5)=0.	!alpha
+       PAR(1)=1.	!sigma
+       PAR(2)=25.	!N
+       PAR(3)=25.	!r
 
 
 !      Set the variables equilibria
-       U(1)=0.
-       U(2)=0.558
-       !U(1)=SQRT(3.)
-       !U(2)=0.324
+       U(1)=0.23331466895097552
+       U(2)=0.0
 
       END SUBROUTINE STPNT
 

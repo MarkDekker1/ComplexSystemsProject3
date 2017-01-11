@@ -4,10 +4,18 @@
 
 print "\n***Generate starting data***"
 
-print "\n***Run with parameter alpha***"
-RUN0=run(e='MFM',c='MFM',ICP=['alpha'])+run(e='MFM',c='MFM',ICP=['alpha'], DS='-')
-p1=plot(RUN0)
-p1.config(stability=True,use_labels=False,coloring_method='branch')
+print "\n***Run with parameter r***"
+RUN0=run(e='MFM',c='MFM', DS='-',UZSTOP={})+run(e='MFM',c='MFM',UZSTOP={})
+p1=plot(RUN0,use_labels=False)
+p1.config(stability=True,use_labels=False,coloring_method='type',bifurcation_y='z',height=300,width=400)
+p1.config(maxy=1.1,miny=-0.1,maxx=32,minx=1.5,xlabel_fontsize=15,ylabel_fontsize=15,ylabel='Frequency Loners z', xlabel='Interest rate r')
+p2=plot(RUN0,use_labels=False)
+p2.config(stability=True,use_labels=False,coloring_method='type',bifurcation_y='f',height=300,width=400)
+p2.config(maxy=1.1,miny=-0.1,maxx=32,minx=1.5,xlabel_fontsize=15,ylabel_fontsize=15,ylabel='Variable f', xlabel='Interest rate r')
+
+
+#print "\n***Check Hopf oscillations***"
+#RUN1=run(RUN0('UZ1'),IPS=2,DS=5e-3)
 
 print "\n***Clean the directory***"
 cl()
