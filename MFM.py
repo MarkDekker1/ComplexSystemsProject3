@@ -1,13 +1,16 @@
 # Preambule
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy import integrate
 
 # Parameters
 r = 3.
 N = 5.
 sigma =1.
-f0=0.5
-z0=0.5
+x0=0.1
+y0=0.6
+z0=0.1
+f0=x0/(x0+y0)
 
 # Equations
 def G(z):
@@ -55,6 +58,25 @@ for i in range(0,np.int(tmax/dt)):
     
     fvec.append(f)
     zvec.append(z)
+    
+# Create Equations
+Diction={}
+Diction['z']='(sigma-f*(r-1))/(f*(1-f))'
+Diction['f']='-1+(r - 1)*z**(N-1)-r/N*(1-z**N)/(1-z)/(z*(1-z)*(1-z**(N- 1)))'
+Initials=[z0,f0]
+
+def Equations(state,t=0):
+    z,f = state
+    list2=[]
+    list2.append(eval(Diction['z']))
+    list2.append(eval(Diction['f']))
+    return list2
+    
+print 'Computing Integration...'
+start = clock()
+Results, infodict = integrate.odeint(Equations, Initials, tvec, full_output=True)
+print 'done in %.3f seconds!' % (clock()-start)
+a,b= Results.T
     
 # Plots
 plt.plot(tvec,zvec)
